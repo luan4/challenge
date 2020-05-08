@@ -1,3 +1,4 @@
+import os
 import asyncio
 import aiohttp
 from aiohttp import ClientSession
@@ -8,22 +9,28 @@ from worker_funcs import executor
 
 
 def main():
-    import pathlib
     import sys
     import json
 
     assert sys.version_info >= (3, 7), "Script requires Python 3.7+."
-    here = pathlib.Path(__file__).parent
 
-    with open("read_config.json", 'r') as config:
+    configs_basedir = '../../configs/'
+    data_basedir = '../../data/'
+
+    path_read_config = os.path.join(configs_basedir, 'read_config.json')
+    path_parse_config = os.path.join(configs_basedir, 'parse_config.json')
+
+    with open(path_read_config, 'r') as config:
         data = json.load(config).get("items")
     file_formatting = data.get("file_formatting")
     custom_formatting = data.get("custom_formatting")
 
-    with open("parse_config.json", 'r') as config:
+
+    with open(path_parse_config, 'r') as config:
         chunk_size = json.load(config).get("chunk_size")
 
-    parser = Parser("mock_data.csv", file_formatting, custom_formatting, chunk_size)
+    path_data = os.path.join(data_basedir, 'mock_data.csv')
+    parser = Parser(path_data, file_formatting, custom_formatting, chunk_size)
 
     while True:
         try:
