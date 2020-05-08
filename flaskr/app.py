@@ -26,20 +26,23 @@ def fetch():
         all_items.append(new_item)
     return json.dumps(all_items), 200
 
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=['GET'])
 def add():
-    data = request.get_json()
-    site = data['site']
-    id = data['id']
-    price = data['price']
-    start_time = data['start_time']
-    name = data['name']
-    description = data['description']
-    nickname = data['nickname']
+    return request.args 
+#    data = request.get_json()
+#    site = data['site']
+#    id = data['id']
+#    price = data['price']
+#    start_time = data['start_time']
+#    name = data['name']
+#    description = data['description']
+#    nickname = data['nickname']
 
-    item = Items_MELI(site=site, id=id, price=price, start_time=start_time, name=name, description=description, nickname=nickname)
-    db.session.add(item)
-    db.session.commit()
-    return json.dumps("Added"), 200
+#    item = Items_MELI(site=site, id=id, price=price, start_time=start_time, name=name, description=description, nickname=nickname)
+#    db.session.add(item)
+#    db.session.commit()
+#    return json.dumps("Added"), 200
         
-
+@app.route('/upload_file', methods=['GET'])
+def upload_all():
+    main()

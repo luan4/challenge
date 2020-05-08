@@ -1,6 +1,15 @@
 import json
 from itertools import islice
 
+# WARNING: if parser encouters empty lines, it raises error.
+
+class Error(Exception):
+   """Base class for other exceptions"""
+   pass
+
+class FileEndReached(Error):
+   """Raised when parser reaches file end"""
+   pass
 
 class Parser:
 
@@ -32,7 +41,10 @@ class Parser:
         chunk = []
         for line in islice(self.input_fd, self.chunk_size):
             chunk.append(line.split(self.delimiter))
-        return chunk
+        if not chunk:
+            raise FileEndReached
+        else:
+            return chunk
 
 if __name__ == "__main__":
 

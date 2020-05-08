@@ -13,13 +13,6 @@ def create_app():
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_CONNECTION_URI
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # Add environment variables to connect to database.
-    os.environ['POSTGRES_USER'] = 'test'
-    os.environ['POSTGRES_PASSWORD'] = 'password'
-    os.environ['POSTGRES_HOST'] = 'localhost'
-    os.environ['POSTGRES_PORT'] = '5432'
-    os.environ['POSTGRES_DB'] = 'example'
-
     # Specify to SQLAlchemy which app is to be used.
     flask_app.app_context().push()
 
