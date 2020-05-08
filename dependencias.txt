@@ -1,0 +1,8 @@
+Python >= 3.7
+aiofiles
+aiohttp
+flask
+flask_sqlalchemy
+psycopg2
+libpq-dev
+docker-compose

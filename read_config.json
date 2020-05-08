@@ -1,0 +1,13 @@
+{
+  "items": {
+    "custom_formatting": {
+      "format": "csv",
+      "delimiter": ",",
+      "header": true
+    },
+    "file_formatting": {
+      "mode": "r",
+      "encoding": "utf-8"
+    }
+  }
+}

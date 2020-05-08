@@ -1,0 +1,4 @@
+{
+  "chunk_size": 2000,
+  "max_parallel_requests": 100 
+}
