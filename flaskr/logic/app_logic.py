@@ -4,8 +4,8 @@ import aiohttp
 from aiohttp import ClientSession
 from aiohttp.client_exceptions import ClientResponseError
 
-from parser import Parser, FileEndReached
-from worker_funcs import executor
+from .parser import Parser, FileEndReached
+from .worker_funcs import executor
 
 
 def main():
@@ -14,11 +14,10 @@ def main():
 
     assert sys.version_info >= (3, 7), "Script requires Python 3.7+."
 
-    configs_basedir = '../../configs/'
-    data_basedir = '../../data/'
-
-    path_read_config = os.path.join(configs_basedir, 'read_config.json')
-    path_parse_config = os.path.join(configs_basedir, 'parse_config.json')
+    # This paths are with respect to app.py
+    path_read_config = '../configs/read_config.json'
+    path_parse_config = '../configs/parse_config.json'
+    path_data = '../data/technical_challenge_data.csv'
 
     with open(path_read_config, 'r') as config:
         data = json.load(config).get("items")
@@ -29,15 +28,13 @@ def main():
     with open(path_parse_config, 'r') as config:
         chunk_size = json.load(config).get("chunk_size")
 
-    path_data = os.path.join(data_basedir, 'mock_data.csv')
     parser = Parser(path_data, file_formatting, custom_formatting, chunk_size)
 
     while True:
         try:
-            asyncio.run(executor("database_placeholder", urls="placeholder_string", parser=parser))
+            asyncio.run(executor(parser=parser))
         except FileEndReached:
             print("Done parsing.")
             break
 
-if __name__ == "__main__":
-    main()
+    return "All is good."

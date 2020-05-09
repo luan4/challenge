@@ -4,7 +4,7 @@ def urlmaker_items(items: list) -> str:
     for item in items:
         id = item[1].rstrip("\n")
         url = f"https://api.mercadolibre.com/items/{item[0]}{id}?attributes="
-        url += "{,price,start_time,currency_id,category_id,seller_id,}"
+        url += "{,id,price,start_time,currency_id,category_id,seller_id,}"
         urls.append(url)
     return urls
 

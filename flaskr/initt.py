@@ -1,8 +1,9 @@
 import os
 from flask import Flask
 import flask_sqlalchemy
+import flask_sqlalchemy
 
-from .models import db
+from .logic.models import db
 from . import config
 
 
@@ -12,6 +13,7 @@ def create_app():
     # URI to connect to the Postgres database, imported from config.py
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_CONNECTION_URI
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    print(flask_app.config)
 
     # Specify to SQLAlchemy which app is to be used.
     flask_app.app_context().push()
@@ -23,4 +25,18 @@ def create_app():
     db.create_all()
 
     return flask_app
+# Define the tables to be created in the database.
+
+db = flask_sqlalchemy.SQLAlchemy(flask_app)
+
+
+class Items_MELI(db.Model):
+    __tablename__ = 'items'
+    id = db.Column(db.String(100), primary_key=True)
+    price = db.Column(db.Integer)
+    start_time = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(100))
+    nickname = db.Column(db.String(100))
+
 

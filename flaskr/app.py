@@ -1,12 +1,30 @@
 import json
 
-from flask import request
+from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
 
-from . import create_app
-from .models import Items_MELI, db
+import config
+from logic.app_logic import main
 
-app = create_app()
+app = Flask(__name__)
 
+# URI to connect to the Postgres database, imported from config.py
+app.config['SQLALCHEMY_DATABASE_URI'] = config.DATABASE_CONNECTION_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class Items_MELI(db.Model):
+    __tablename__ = 'items'
+    id = db.Column(db.String(100), primary_key=True)
+    price = db.Column(db.Float)
+    start_time = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    description = db.Column(db.String(100))
+    nickname = db.Column(db.String(100))
+
+# Create table defined above
+db.create_all()
 
 @app.route('/', methods=['GET'])
 def fetch():
@@ -14,7 +32,6 @@ def fetch():
     all_items = []
     for item in items:
         new_item = {
-                "site": item.site,
                 "id": item.id,
                 "price": item.price,
                 "start_time": item.start_time,
@@ -26,23 +43,14 @@ def fetch():
         all_items.append(new_item)
     return json.dumps(all_items), 200
 
-@app.route('/add', methods=['GET'])
-def add():
-    return request.args 
-#    data = request.get_json()
-#    site = data['site']
-#    id = data['id']
-#    price = data['price']
-#    start_time = data['start_time']
-#    name = data['name']
-#    description = data['description']
-#    nickname = data['nickname']
+@app.route('/delete_all', methods=['GET'])
+def remove_all():
+    print(db.MetaData())
+    db.drop_all()
+    db.create_all()
+    return "Table deleted"
 
-#    item = Items_MELI(site=site, id=id, price=price, start_time=start_time, name=name, description=description, nickname=nickname)
-#    db.session.add(item)
-#    db.session.commit()
-#    return json.dumps("Added"), 200
         
 @app.route('/upload_file', methods=['GET'])
 def upload_all():
-    main()
+    return main()
