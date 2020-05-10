@@ -30,7 +30,6 @@ def fetch():
 
 @app.route('/delete_all', methods=['GET'])
 def remove_all():
-    print(db.MetaData())
     db.drop_all()
     db.create_all()
     return "Table deleted"

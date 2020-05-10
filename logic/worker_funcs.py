@@ -4,6 +4,8 @@ from aiohttp.client_exceptions import ClientResponseError
 
 import flask_sqlalchemy
 
+import logging
+
 from .urlmakers import urlmaker_items, urlmaker_category, urlmaker_currency, urlmaker_user
 from .parser import Parser, FileEndReached
 from .models import Items_MELI, db
@@ -17,7 +19,7 @@ async def fetch_fields(url: str, session: ClientSession, req_field=None, **kwarg
     try: 
         resp.raise_for_status()
     except ClientResponseError as error:
-        print(error)
+        logging.warning(error)
     else:
         # is this await necessary??
         json = await resp.json()
