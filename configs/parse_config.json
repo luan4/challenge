@@ -1,4 +1,4 @@
 {
   "chunk_size": 2500,
-  "secure_mode": true
+  "secure_mode": false
 }

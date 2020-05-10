@@ -1,10 +1,10 @@
-﻿Multiprocessing consists of creating multiple processes to perform a program's task. If a computer has access to multiple central processing units (CPUs), this processes can be run in parallel, which could essentially make you program n times faster, if you have n cores. CPU intensive tasks, such as mathematical operations or data processing, will benefit from multiprocessing.
-        Say, for example, I was given a set of N elements and was tasked to return each element in the set multiplied by 8. If I had access to a computer with 4 cores, I could split the set into 4 sets of N/4 elements, and create a separate process for each set. All operations would run in parallel and the program finish 4 times faster than if I would have had a single process running on one CPU.
+﻿Multiprocessing consists of creating multiple processes to perform a program's task. If a computer has access to multiple central processing units (CPUs), these processes can be run in parallel, which could essentially make you program n times faster, if you have n cores. CPU intensive tasks, such as mathematical operations or data processing, will benefit from multiprocessing.
+        Say, for example, I was given a set of N elements and was tasked to return each element in the set multiplied by 8. If I had access to a computer with 4 cores, I could split the set into 4 sets of N/4 elements, and create a separate process for each set. All operations would run in parallel and the program would finish 4 times faster than if I would have had a single process running on one CPU.
 
 
-        On the other hand, each process can contain multiple threads. These are essentially independant sets of instructions that the process will attempt to perform. If a process with multiple threads is running on a single CPU, each time a thread is idle, the process could start handling another thread and come back to the original thread when it is ready. 
+        On the other hand, each process can contain multiple threads. These are essentially independent sets of instructions that the process will attempt to perform. If a process with multiple threads is running on a single CPU, each time a thread is idle, the process could start handling another thread and come back to the original thread when it is ready. 
         How could a thread become idle? Every time that thread is waiting for an I/O operation, for example waiting for a network connection or reading from a hard drive.
-        Say, for example, I was given the task of downloading three different text files from the internet, alter them in some way, and store them on my hard drive. If this was done on a single thread, the program would have no other choice than to:
+        Say, for example, I was given the task of downloading three different text files from the internet, altering them in some way, and storing them on my hard drive. If this was done on a single thread, the program would have no other choice than to:
 . Send request number 1 to start downloading file1
 . Wait for it to download
 . Perform the operations required
@@ -27,17 +27,9 @@ If on the other hand, I had created a separate thread for each file, the process
 In this model, while time is being wasted by waiting for downloads or disk writing, the process switches to another thread and continues its order of operations until this one becomes idle and so on, minimizing downtime.        
 
 
-        Coroutines, on the other hand, are just functions that have the ability to suspend its execution and then continue running from where they left off at a later moment (much like a Python generator). If we had a coroutine scheduled for each file in the example above, we would achive a very similar order of execution. Coroutines are collaborative: at any given time, a program with coroutines is running only one of its coroutines, and this running coroutine suspends its execution only when it explicitly requests to be suspended. Even in multi-core system, there is only one coroutine running at any given time (but multiple threads can run in parallel). 
-        Coroutines are implemented in Python via the async IO package, and the reason to use them over threads is that threading tends to scale poorly because threads are a system resource with finite availability. Creating thousands of threads is not feasible, while creating thousands of async IO tasks is compleately reasonable. 
-        Async IO shines when you have multiple IO-bound tasks where the tasks would otherwise be dominated by blocking IO-bound wait time, such as:
-
-
-. Network IO, whether your program is the server or the client side
-. Serverless designs, such as a peer-to-peer, multi-user network like a group chatroom
-. Read/write operations where you want to mimic a “fire-and-forget” style but worry less about holding a lock on whatever you’re reading and writing to
-
-
-The biggest reason not to use it is that coroutines only support a specific set of objects that define a specific set of methods.
+        Coroutines, on the other hand, are just functions that have the ability to suspend its execution and then continue running from where they left off at a later moment (much like a Python generator). If we had a coroutine scheduled for each file in the example above, we would achieve a very similar order of execution. Coroutines are collaborative: at any given time, a program with coroutines is running only one of its coroutines, and this running coroutine suspends its execution only when it explicitly requests to be suspended. 
+Coroutines are implemented in Python via the async IO package, and the reason to use them over threads is that threading tends to scale poorly because threads are a system resource with finite availability. Creating thousands of threads is not feasible, while creating thousands of async IO tasks is completely reasonable. 
+Async IO’s main drawback is that coroutines only support a specific set of objects that define a specific set of methods.
 
 
         Taking all this into consideration, if I were tasked to retrieve item information for 1.000.000 items from an HTTP API, I would create a coroutine which handled one request, and then execute that coroutine once for each item. These coroutines would be able to pass execution to each other when they become idle and then resume from where they left off. 

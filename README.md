@@ -96,7 +96,7 @@ To specify read options such as which file to read from and its formatting, edit
 ```
 challenge/configs/read_config.json
 ```
-which has to be located in
+the file you want to read from must be stored in:
 ```
 challenge/data/
 ```
