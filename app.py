@@ -1,4 +1,4 @@
-import json
+from flask import jsonify
 
 from templates.page import home_page
 from logic.models import db, create_app, Items_MELI
@@ -26,7 +26,7 @@ def fetch():
         }
 
         all_items.append(new_item)
-    return json.dumps(all_items), 200
+    return jsonify(all_items)
 
 @app.route('/delete_all', methods=['GET'])
 def remove_all():
