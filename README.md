@@ -18,6 +18,7 @@
 The following python packages, which can be installed via pip are required:
 
 * aiohttp
+* sqlalchemy
 * flask
 * flask\_sqlalchemy
 * psycopg2

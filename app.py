@@ -1,4 +1,5 @@
 from flask import jsonify
+from sqlalchemy.exc import IntegrityError
 
 from templates.page import home_page
 from logic.models import db, create_app, Items_MELI
@@ -37,4 +38,8 @@ def remove_all():
         
 @app.route('/upload_file', methods=['GET'])
 def upload_all():
-    return main()
+    try:
+        return main()
+    except IntegrityError:
+        return """Attempting to upload duplicate
+            keys, reset table and try again."""
