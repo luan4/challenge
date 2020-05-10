@@ -68,7 +68,6 @@ http://localhost:5000
 on your browser, you should see links to the three endpoints the Flask app provides:
 
 The main function (get item info from APIs and upload it to the containerized database) is mapped to the _/upload_file_ endpoint.
-Sending the request
 ```
 http://localhost:5000/upload_file
 ```
