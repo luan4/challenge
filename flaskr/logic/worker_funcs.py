@@ -46,7 +46,17 @@ async def writer(url: str, **kwargs) -> None:
     url_user = urlmaker_user(seller_id)
     user_nickname = await fetch_fields(url_user, req_field="nickname", **kwargs)
 
-    uploadable = Items_MELI(id=item["id"], price=price, start_time=item["start_time"],
+    # This is ugly, I need to catch key errors because API sometimes doesn't return some fields.
+    try:
+        price=item["price"]
+    except KeyError:
+        price=None
+    try:
+        start_time=item["start_time"]
+    except KeyError:
+        start_time=None
+
+    uploadable = Items_MELI(id=item["id"], price=price, start_time=start_time,
             name=category_name, description=currency_description, nickname=user_nickname
             )
 
@@ -61,7 +71,6 @@ async def executor(parser: Parser, **kwargs) -> None:
         chunk = parser.read_chunk()
         urls = urlmaker_items(chunk)
         for url in urls:
-            #print(url)
             tasks.append(
                 writer(url=url, session=session, **kwargs)
             )

@@ -1,9 +1,9 @@
 {
-  "file_name": "mock_data.jsonl",
+  "file_name": "technical_challenge_data.csv",
   "custom_formatting": {
-    "format": "jsonl",
-    "delimiter": false,
-    "header": true
+    "format": "csv",
+    "delimiter": ",",
+    "header": false
   },
   "file_formatting": {
     "mode": "r",

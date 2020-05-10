@@ -74,19 +74,19 @@ you are having issues regarding docker permissions. Follow instructions from the
 The main function (get item info from APIs and upload it to the containerized database) is mapped to the _/upload_file_ endpoint.
 Sending the request
 ```
-https://localhost:5000/upload_file
+http://localhost:5000/upload_file
 ```
 
 with your browser (with the flask app running) should suffice. You can check the database now holds the information by accessing 
 
 ```
-https://localhost:5000/
+http://localhost:5000/
 ```
 
 which returns everything on the table.
 The information on the database is configured to persist even when the container is stopped and restarted. If you want to empty the table, you can access
 ```
-https://localhost:5000/delete_all
+http://localhost:5000/delete_all
 ```
 #### 5. Configuration options
 

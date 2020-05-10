@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 class Items_MELI(db.Model):
     __tablename__ = 'items'
     id = db.Column(db.String(100), primary_key=True)
-    price = db.Column(db.Float)
+    price = db.Column(db.String(100))
     start_time = db.Column(db.String(100))
     name = db.Column(db.String(100))
     description = db.Column(db.String(100))
