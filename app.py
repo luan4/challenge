@@ -36,7 +36,7 @@ def remove_all():
     return "Table deleted"
 
         
-@app.route('/upload_file', methods=['GET'])
+@app.route('/gather_and_upload', methods=['GET'])
 def upload_all():
     try:
         return main()

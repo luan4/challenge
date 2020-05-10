@@ -9,7 +9,7 @@ home_page = """ <!DOCTYPE html>
       <a href="/print_table">Print Table</a>
     </button>
     <button type="button" name="button">
-      <a href="/upload_file">Gather and Upload</a>
+      <a href="/gather_and_upload">Gather and Upload</a>
     </button>
     <button type="button" name="button">
       <a href="/delete_all">Reset Table</a>
