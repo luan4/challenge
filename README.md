@@ -7,7 +7,7 @@
 
 ### The answer to the excersise can be found on challenge/teo/excersise.txt
 
-#### 1. Installing dependencies
+### 1. Installing dependencies
 
 * Python >= 3.7 is required.
 * docker
@@ -22,7 +22,7 @@ The following python packages, which can be installed via pip are required:
 * flask\_sqlalchemy
 * psycopg2
 
-#### 2. Build docker containing the database
+### 2. Build docker containing the database
 To build the container, after cloning the repository run
 ```sh
 $ cd ./challenge/
@@ -36,7 +36,7 @@ $ docker run -d --name postgres -p 5432:5432 \
 	   --env-file database.conf \
 	   -v db_volume:/var/lib/postgresql postgres:latest
 ```
-#### 3. Launching the Flask app
+### 3. Launching the Flask app
 To start the Flask app, run the following commands:
 ```
 $ export FLASK_APP=app.py
@@ -59,7 +59,7 @@ Error code: SSL_ERROR_RX_RECORD_TOO_LONG
 ```
 you are having issues regarding docker permissions. Follow instructions from the [docker official docs](https://docs.docker.com/engine/install/linux-postinstall/)
 
-#### 4. Launching main function and checking results
+### 4. Launching main function and checking results
 
 If you access
 ```
@@ -83,9 +83,9 @@ The information on the database is configured to persist even when the container
 ```
 http://localhost:5000/delete_all
 ```
-#### 5. Configuration options
+### 5. Configuration options
 
-##### Read and parse options
+#### Read and parse options
 To specify read options such as which file to read from and its formatting, edit the file
 ```
 challenge/configs/read_config.json
@@ -107,7 +107,7 @@ Keep in mind that the main bottleneck in the program's speed is fetching lines f
 If _secure\_mode_ is set to false, the changes to the database will be commited only once, after all lines have been added. This is much faster than commiting every line but if the function fails for any reason, nothing will be held in the database.
 If _secure\_mode_ is set to true, the program will commit after adding every line to the database. 
 
-##### Docker config
+#### Docker config
 The file
 ```
 challenge/docker-compose.yml
