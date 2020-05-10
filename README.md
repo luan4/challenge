@@ -5,6 +5,8 @@
 4. Launching main function and checking results.
 5. Configuration options.
 
+###### The answer to the excersise can be found on challenge/teo/excersise.txt
+
 #### 1. Installing dependencies
 
 * Python >= 3.7 is required.
