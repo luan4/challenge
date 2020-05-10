@@ -1,9 +1,9 @@
 {
-  "file_name": "mock_data.csv",
+  "file_name": "technical_challenge_data.csv",
   "custom_formatting": {
     "format": "csv",
     "delimiter": ",",
-    "header": false
+    "header": true
   },
   "file_formatting": {
     "mode": "r",
