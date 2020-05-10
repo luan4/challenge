@@ -2,8 +2,7 @@ def urlmaker_items(items: list) -> str:
     """ Takes a list of items (from parser.read_chunk) and returns a list of urls for item API request """
     urls = []
     for item in items:
-        id = item[1].rstrip("\n")
-        url = f"https://api.mercadolibre.com/items/{item[0]}{id}?attributes="
+        url = f"https://api.mercadolibre.com/items/{item[0]}{item[1]}?attributes="
         url += "{,id,price,start_time,currency_id,category_id,seller_id,}"
         urls.append(url)
     return urls

@@ -1,13 +1,12 @@
 {
-  "items": {
-    "custom_formatting": {
-      "format": "csv",
-      "delimiter": ",",
-      "header": true
-    },
-    "file_formatting": {
-      "mode": "r",
-      "encoding": "utf-8"
-    }
+  "file_name": "mock_data.jsonl",
+  "custom_formatting": {
+    "format": "jsonl",
+    "delimiter": false,
+    "header": true
+  },
+  "file_formatting": {
+    "mode": "r",
+    "encoding": "utf-8"
   }
 }

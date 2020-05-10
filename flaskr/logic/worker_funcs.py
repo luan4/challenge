@@ -46,11 +46,6 @@ async def writer(url: str, **kwargs) -> None:
     url_user = urlmaker_user(seller_id)
     user_nickname = await fetch_fields(url_user, req_field="nickname", **kwargs)
 
-    try:
-        price = float(item["price"])
-    except KeyError:
-        price = None
-
     uploadable = Items_MELI(id=item["id"], price=price, start_time=item["start_time"],
             name=category_name, description=currency_description, nickname=user_nickname
             )
@@ -66,7 +61,7 @@ async def executor(parser: Parser, **kwargs) -> None:
         chunk = parser.read_chunk()
         urls = urlmaker_items(chunk)
         for url in urls:
-            print(url)
+            #print(url)
             tasks.append(
                 writer(url=url, session=session, **kwargs)
             )
