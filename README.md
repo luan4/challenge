@@ -11,7 +11,7 @@
 
 * Python >= 3.7 is required.
 * docker
-* libpq-dev (required to install psycopg2)
+* libpq-dev (postgresql if on mac)
 * docker-compose (optional)
 	
 
