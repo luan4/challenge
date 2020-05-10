@@ -99,10 +99,14 @@ which has to be located in
 challenge/data/
 ```
 
-To specify the amount of items to be held in memory from the file at the same time, edit the file
+The file
 ```
 challenge/configs/parse_config.json
 ```
+contains to options: _chunk\_size_ and _secure\_mode_. 
+
+_chunk\_size_ specifies the amount of items from the file to be held in memory at the same time.
 Keep in mind that the main bottleneck in the program's speed is fetching lines from the file stored in the hard drive, so setting the chunk size to a low value will result in poor performance. The bigger the chunk size your memory can handle, the faster the program will run.
 
-
+If _secure\_mode_ is set to false, the changes to the database will be commited only once, after all lines have been added. This is much faster than commiting every line but if the function fails for any reason, nothing will be held in the database.
+If _secure\_mode_ is set to true, the program will commit after adding every line to the database. 

@@ -25,7 +25,7 @@ async def fetch_fields(url: str, session: ClientSession, req_field=None, **kwarg
             return json.get(req_field)
         return json
 
-async def writer(url: str, **kwargs) -> None:
+async def writer(url: str, secure_mode: bool, **kwargs) -> None:
     """ Fetch all required fields from multiple APIs and write the requested fields to database: 
     
     site_id, id, price, start_time, name(categories), description(currency), nickname(users)
@@ -61,8 +61,10 @@ async def writer(url: str, **kwargs) -> None:
             )
 
     db.session.add(uploadable)
+    if secure_mode:
+        db.session.commit()
 
-async def executor(parser: Parser, **kwargs) -> None:
+async def executor(parser: Parser, secure_mode: bool, **kwargs) -> None:
     """ Crawl file and call a writer for each line in the file """
     async with ClientSession() as session:
         tasks = []
@@ -70,7 +72,7 @@ async def executor(parser: Parser, **kwargs) -> None:
         urls = urlmaker_items(chunk)
         for url in urls:
             tasks.append(
-                writer(url=url, session=session, **kwargs)
+                writer(url=url, session=session, secure_mode=secure_mode, **kwargs)
             )
         await asyncio.gather(*tasks)
         db.session.commit()

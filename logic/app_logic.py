@@ -31,13 +31,15 @@ def main():
 
 
     with open(path_parse_config, 'r') as config:
-        chunk_size = json.load(config).get("chunk_size")
+        parser_conf = json.load(config)
+        chunk_size = parser_conf.get("chunk_size")
+        secure_mode = parser_conf.get("secure_mode")
 
     parser = Parser(path_to_file, file_formatting, custom_formatting, chunk_size)
 
     while True:
         try:
-            asyncio.run(executor(parser=parser))
+            asyncio.run(executor(parser=parser, secure_mode=secure_mode))
         except FileEndReached:
             print("Done parsing.")
             break
