@@ -29,6 +29,9 @@ def main():
     file_name = data.get("file_name")
     path_to_file = os.path.join('./data/', file_name)
 
+    if custom_formatting["format"] not in ["csv", "jsonl"]:
+        return "Supported file types are csv and jsonl"
+
 
     with open(path_parse_config, 'r') as config:
         parser_conf = json.load(config)
