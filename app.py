@@ -3,9 +3,10 @@ import json
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 
-import config
-from logic.app_logic import main
+from flaskr import config
+from flaskr.logic.app_logic import main
 
+# Create flask app
 app = Flask(__name__)
 
 # URI to connect to the Postgres database, imported from config.py

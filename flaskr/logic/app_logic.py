@@ -15,8 +15,8 @@ def main():
     assert sys.version_info >= (3, 7), "Script requires Python 3.7+."
 
     # This paths are with respect to app.py
-    path_read_config = '../configs/read_config.json'
-    path_parse_config = '../configs/parse_config.json'
+    path_read_config = './configs/read_config.json'
+    path_parse_config = './configs/parse_config.json'
 
     with open(path_read_config, 'r') as config:
         data = json.load(config)
@@ -24,7 +24,7 @@ def main():
     file_formatting = data.get("file_formatting")
     custom_formatting = data.get("custom_formatting")
     file_name = data.get("file_name")
-    path_to_file = os.path.join('../data/', file_name)
+    path_to_file = os.path.join('./data/', file_name)
 
 
     with open(path_parse_config, 'r') as config:
