@@ -28,19 +28,7 @@ To build the container, after cloning the repository run
 $ cd ./challenge/
 $ docker-compose up --build -d
 ```
-This uses the **docker-compose.yml** configuration file to set the container's parameters. The option
-```
-volumes: - db_volume:/var/lib/postgresql
-```
-inside the config file mounts a volume at the specified location so that data persists even when the container is killed.
-```
-env_file: database.conf
-```
-tells the container to set its environment variables to match the ones specified in database.conf. These will be needed to connect to the database using the Flask app, as well with the ports, specified in:
-```
-ports:
-  - 5432:5432
-```
+This uses the **docker-compose.yml** configuration file to set the container's parameters.
 In case you do not want to install docker-compose, you could just run:
 ```
 $ docker volume create --name db_volume
@@ -73,16 +61,22 @@ you are having issues regarding docker permissions. Follow instructions from the
 
 #### 4. Launching main function and checking results
 
+If you access
+```
+http://localhost:5000
+```
+on your browser, you should see links to the three endpoints the Flask app provides:
+
 The main function (get item info from APIs and upload it to the containerized database) is mapped to the _/upload_file_ endpoint.
 Sending the request
 ```
 http://localhost:5000/upload_file
 ```
 
-with your browser (with the flask app running) should suffice. You can check the database now holds the information by accessing 
+You can check the database now holds the information by accessing 
 
 ```
-http://localhost:5000/
+http://localhost:5000/print_table
 ```
 
 which returns everything on the table.
@@ -92,6 +86,7 @@ http://localhost:5000/delete_all
 ```
 #### 5. Configuration options
 
+##### Read and parse options
 To specify read options such as which file to read from and its formatting, edit the file
 ```
 challenge/configs/read_config.json
@@ -112,3 +107,22 @@ Keep in mind that the main bottleneck in the program's speed is fetching lines f
 
 If _secure\_mode_ is set to false, the changes to the database will be commited only once, after all lines have been added. This is much faster than commiting every line but if the function fails for any reason, nothing will be held in the database.
 If _secure\_mode_ is set to true, the program will commit after adding every line to the database. 
+
+##### Docker config
+The file
+```
+challenge/docker-compose.yml
+```
+Contains the configuration options to run the container. The line
+```
+volumes: - db_volume:/var/lib/postgresql
+```
+tells docker to mount a volume at the specified location so that data persists even when the container is killed.
+```
+env_file: database.conf
+```
+tells the container to set its environment variables to match the ones specified in database.conf. These will be needed to connect to the database using the Flask app, as well with the ports, specified in:
+```
+ports:
+  - 5432:5432
+```

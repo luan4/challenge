@@ -1,5 +1,6 @@
 import json
 
+from templates.page import home_page
 from logic.models import db, create_app, Items_MELI
 from logic.app_logic import main
 
@@ -7,6 +8,10 @@ from logic.app_logic import main
 app = create_app()
 
 @app.route('/', methods=['GET'])
+def page():
+    return home_page
+
+@app.route('/print_table', methods=['GET'])
 def fetch():
     items = Items_MELI.query.all()
     all_items = []
