@@ -44,7 +44,6 @@ def main():
         try:
             asyncio.run(executor(parser=parser, secure_mode=secure_mode))
         except FileEndReached:
-            print("Done parsing.")
             break
 
-    return "All is good."
+    return "Finished uploading"
