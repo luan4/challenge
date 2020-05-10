@@ -21,9 +21,9 @@ The following python packages, which can be installed via pip are required:
 * psycopg2
 
 #### 2. Build docker containing the database
-To build the container, run
+To build the container, after cloning the repository run
 ```sh
-$ cd ./challenge/flaskr/
+$ cd ./challenge/
 $ docker-compose up --build -d
 ```
 This uses the **docker-compose.yml** configuration file to set the container's parameters. The option
