@@ -19,7 +19,7 @@ The following python packages, which can be installed via pip are required:
 
 * aiohttp
 * flask
-* flask_sqlalchemy
+* flask\_sqlalchemy
 * psycopg2
 
 #### 2. Build docker containing the database
@@ -105,7 +105,7 @@ The file
 ```
 challenge/configs/parse_config.json
 ```
-contains to options: _chunk\_size_ and _secure\_mode_. 
+contains two options: _chunk\_size_ and _secure\_mode_. 
 
 _chunk\_size_ specifies the amount of items from the file to be held in memory at the same time.
 Keep in mind that the main bottleneck in the program's speed is fetching lines from the file stored in the hard drive, so setting the chunk size to a low value will result in poor performance. The bigger the chunk size your memory can handle, the faster the program will run.
