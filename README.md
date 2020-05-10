@@ -72,6 +72,7 @@ The main function (get item info from APIs and upload it to the containerized da
 ```
 http://localhost:5000/gather_and_upload
 ```
+With the file provided in the challenge (2000 items), this function takes about 18 seconds to complete.
 
 You can check the database now holds the information by accessing 
 
