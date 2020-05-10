@@ -61,8 +61,6 @@ async def writer(url: str, **kwargs) -> None:
             )
 
     db.session.add(uploadable)
-    db.session.commit()
-
 
 async def executor(parser: Parser, **kwargs) -> None:
     """ Crawl file and call a writer for each line in the file """
@@ -75,3 +73,4 @@ async def executor(parser: Parser, **kwargs) -> None:
                 writer(url=url, session=session, **kwargs)
             )
         await asyncio.gather(*tasks)
+        db.session.commit()
