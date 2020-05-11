@@ -21,7 +21,6 @@ async def fetch_fields(url: str, session: ClientSession, req_field=None, **kwarg
     except ClientResponseError as error:
         logging.warning(error)
     else:
-        # is this await necessary??
         json = await resp.json()
         if json and req_field:
             return json.get(req_field)
