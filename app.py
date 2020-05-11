@@ -10,10 +10,12 @@ app = create_app()
 
 @app.route('/', methods=['GET'])
 def page():
+    """Returns the main page"""
     return home_page
 
 @app.route('/print_table', methods=['GET'])
 def fetch():
+    """Queries for all items and returns a browser friendly json"""
     items = Items_MELI.query.all()
     all_items = []
     for item in items:
@@ -31,6 +33,7 @@ def fetch():
 
 @app.route('/delete_all', methods=['GET'])
 def remove_all():
+    """Drops all tables and then creates them again"""
     db.drop_all()
     db.create_all()
     return "Table deleted"
@@ -38,6 +41,7 @@ def remove_all():
         
 @app.route('/gather_and_upload', methods=['GET'])
 def upload_all():
+    """Executes main function and catches the duplicate key error"""
     try:
         return main()
     except IntegrityError:
